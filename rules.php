@@ -49,7 +49,7 @@ Class Rules {
 	 */
 	function actions() {
 		
-		add_action( 'init', array( $this, 'cpts' ) ); // Custom Post Types
+		add_action( 'init', array( $this, 'cpts' ) ); # Custom Post Types
 		
 	}
 	
@@ -62,13 +62,23 @@ Class Rules {
 		
 	}
 	
+	/**
+	 * Register our Custom Post Types
+	 */
 	function cpts() {
 		
+		# Rule type
 		register_extended_post_type( 'rule', array(
 			
 			'menu_icon' => 'dashicons-book',
 			
-			'menu_position' => 65
+			'menu_position' => 65,
+			
+			'supports' => array(
+				'title',
+				'author',
+				'page-attributes',
+			),
 		
 		) );
 		
