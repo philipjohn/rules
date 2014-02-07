@@ -31,7 +31,12 @@ Class Rules {
 		}
 		
 		# Set up Meta Box
-		self::meta_box();		
+		self::meta_box();
+
+		# Allow for the post type to be changed
+		if ( !defined('RULES_POST_TYPE') ) {
+			define( 'RULES_POST_TYPE', 'rule' );
+		}
 		
 		# Set up...
 		self::actions(); # Actions
@@ -96,7 +101,7 @@ Class Rules {
 	function cpts() {
 		
 		# Rule type
-		register_extended_post_type( 'rule', array(
+		register_extended_post_type( RULES_POST_TYPE, array(
 			
 			'menu_icon' => 'dashicons-book',
 			
@@ -117,8 +122,8 @@ Class Rules {
 	 */
 	function remove_meta_boxes() {
 		if ( is_admin() ) {
-			remove_meta_box( 'authordiv', 'rule', 'normal' ); # Author
-			remove_meta_box( 'pageparentdiv', 'rule', 'side' ); # Page Attributes
+			remove_meta_box( 'authordiv', RULES_POST_TYPE, 'normal' ); # Author
+			remove_meta_box( 'pageparentdiv', RULES_POST_TYPE, 'side' ); # Page Attributes
 		}
 	}
 	
@@ -134,7 +139,7 @@ Class Rules {
 		$meta_boxes[] = array(
 			'id'       => 'information',
 			'title'    => __('Information'),
-			'pages'    => array( 'rule' ),
+			'pages'    => array( RULES_POST_TYPE ),
 			'context'  => 'normal',
 			'priority' => 'high',
 			'fields' => array(
