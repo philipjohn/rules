@@ -1,0 +1,18 @@
+{
+	"name": "philipjohn/rules",
+	"description": "Rules for WordPress allows you to set activity triggers and specify actions for your site to perform, all through the dashboard.",
+	"homepage": "https://github.com/philipjohn/rules/",
+	"license": "WTFPL",
+	"authors": [
+		{
+			"name": "Philip John",
+			"homepage": "http://philipjohn.me.uk/"
+		}
+	],
+	"require": {
+		"johnbillion/ExtendedCPTs": "2.3.*" 
+	},
+	"autoload": {
+		"files": [ "rules.php" ]
+	}
+}

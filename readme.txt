@@ -7,15 +7,13 @@ Stable tag: 0.1
 License: WTFPL
 License URI: http://www.wtfpl.net/
 
-Have power over your WordPress site. No coding required.
+Make all the things happen. No coding required.
 
 == Description ==
 
-Rules for WordPress finally gives you control over your site by allowing you to directly affect what plugins and themes can and can't do.
+Rules for WordPress allows you to set activity triggers and specify actions for your site to perform, all through the dashboard.
 
-Not only that but it allows you to create your own plugin-style functionality without an ounce of code required.
-
-Finally, it provides other plugins the ability to add additional actions that you can carry out using Rules.
+WordPress' excellent hooks system is now accessible to non-coders.
 
 == Installation ==
 
