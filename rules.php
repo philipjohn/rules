@@ -57,6 +57,7 @@ Class Rules {
 	function actions() {
 		
 		add_action( 'init', array( $this, 'cpts' ) ); # Custom Post Types
+		add_action( 'admin_menu', array( $this, 'remove_meta_boxes' ) );
 		
 	}
 	
@@ -89,6 +90,16 @@ Class Rules {
 		
 		) );
 		
+	}
+	
+	/**
+	 * Get rid of unnecessary meta boxes for the Rules post type
+	 */
+	function remove_meta_boxes() {
+		if ( is_admin() ) {
+			remove_meta_box( 'authordiv', 'rule', 'normal' ); # Author
+			remove_meta_box( 'pageparentdiv', 'rule', 'side' ); # Page Attributes
+		}
 	}
 	
 }
