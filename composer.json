@@ -9,8 +9,22 @@
 			"homepage": "http://philipjohn.me.uk/"
 		}
 	],
+	"repositories": [
+        {
+           "type": "package",
+    		"package": {
+        		"name": "johnbillion/extendedcpts",
+        		"version": "2.3.1",
+        		"source": {
+	                "url": "git@github.com:johnbillion/ExtendedCPTs.git",
+            		"type": "git",
+        			"reference": "2.3.1"
+        		}
+        	}
+        }
+    ],
 	"require": {
-		"johnbillion/ExtendedCPTs": "2.3.*" 
+		"johnbillion/extendedcpts": "2.3.1" 
 	},
 	"autoload": {
 		"files": [ "rules.php" ]
