@@ -12,6 +12,8 @@
 
 Class Rules {
 	
+	public $meta_prefix = 'rules_';
+	
 	/**
 	 * In the beginning, Phil created a Class...
 	 */
@@ -22,7 +24,7 @@ Class Rules {
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 		
 		# Grab the required libraries
-		if ( file_exists('lib/extendedcpts/extended-cpts.php') ) {
+		if ( file_exists( dirname(__FILE__) . '/lib/extendedcpts/extended-cpts.php' ) ) {
 			require_once 'lib/extendedcpts/extended-cpts.php'; # Extended CPTs
 		} else {
 			wp_die( __('Oops, a required library (Extended CPTs) appears to be missing!') );
@@ -52,16 +54,8 @@ Class Rules {
 	}
 	
 	/**
-	 * Register WP action hooks
+	 * Loads the meta box plugin
 	 */
-	function actions() {
-		
-		add_action( 'init', array( $this, 'cpts' ) ); # Custom Post Types
-		add_action( 'admin_menu', array( $this, 'remove_meta_boxes' ) );
-		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) ); # Guess...
-		
-	}
-	
 	function meta_box() {
 		
 		# Tell Meta Box where it is
@@ -78,10 +72,22 @@ Class Rules {
 	}
 	
 	/**
+	 * Register WP action hooks
+	 */
+	function actions() {
+		
+		add_action( 'init', array( $this, 'cpts' ) ); # Custom Post Types
+		add_action( 'admin_menu', array( $this, 'remove_meta_boxes' ) );
+		
+	}
+	
+	/**
 	 * Register WP filter hooks
 	 */
 	function filters() {
-		# “In all our searching, the only thing we've found that makes the emptiness bearable is each other.”
+		
+		add_filter ( 'rwmb_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		
 	}
 	
 	/**
@@ -116,12 +122,33 @@ Class Rules {
 		}
 	}
 	
-	function add_meta_boxes() {
-		add_meta_box( 'information', __('Information'), array( $this, 'meta_box_information' ), 'rule', 'normal', 'core' );
-	}
-	
-	function meta_box_information( $post ) {
-		echo 'Hello, world!';
+	/**
+	 * Adds all of our meta boxes to our Rules post type
+	 * @param array $meta_boxes An array of existing meta boxes
+	 * @return array
+	 */
+	function add_meta_boxes( $meta_boxes ) {
+		
+		$prefix = $this->meta_prefix;
+		
+		$meta_boxes[] = array(
+			'id'       => 'information',
+			'title'    => __('Information'),
+			'pages'    => array( 'rule' ),
+			'context'  => 'normal',
+			'priority' => 'high',
+			'fields' => array(
+				array(
+					'name'  => __('Description'),
+					'desc'  => __('Provide a friendly description of this rule to explain it\'s purpose'),
+					'id'    => $prefix . 'description',
+					'type'  => 'textarea',
+				),
+			)
+		);
+		
+		return $meta_boxes;
+		
 	}
 	
 }
